@@ -10,6 +10,8 @@ from mcp.server.fastmcp import FastMCP
 # Create an MCP server
 mcp = FastMCP("AgentAnalyzer")
 
+
+
 # Basic addition tool (keeping your original functionality)
 @mcp.tool()
 def add(a: int, b: int) -> int:
@@ -156,3 +158,4 @@ def generate_agent_graph(agent_insights: list, output_dir: str) -> None:
 # Run the server
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+
