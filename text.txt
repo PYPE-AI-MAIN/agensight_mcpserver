@@ -1,0 +1,67 @@
+reate a dynamic agent workflow framework with the following capabilities:
+
+1. WORKFLOW CONFIGURATION
+   - Create a workflow.yaml file in the root directory with the following structure:
+     - ingestion:
+       - agents: [list of agent definitions]
+       - workflow:
+         - nodes: [list of workflow node definitions]
+   
+   - Each agent definition should include:
+     - name: Unique identifier for the agent
+     - module: Python module path where the agent class is defined
+     - description: Human-readable description of the agent's purpose
+     - tools: List of methods/functions the agent can perform
+     - config: Any specific configuration parameters
+
+   - Each workflow node definition should include:
+     - id: Unique identifier for the node
+     - agent: Reference to an agent name
+     - tool: Which tool/method to use from the agent
+     - inputs: Sources of input (previous nodes or user input)
+     - outputs: Where to send the results
+     - ui_position: Optional coordinates for visual representation
+
+2. APPLICATION STRUCTURE
+   - Create a main.py file that:
+     - Loads the workflow.yaml configuration
+     - Dynamically imports agent classes
+     - Builds processors for each agent
+     - Generates a visual representation of the workflow
+     - Creates a Gradio UI with options to:
+       - Run the full pipeline
+       - Run individual agents
+       - View intermediate results
+       - Provide necessary API keys
+
+3. AGENT IMPLEMENTATION
+   - Create a directory structure for agents:
+     - agents/
+       - __init__.py
+       - base_agent.py (abstract base class)
+       - agent1.py, agent2.py, etc.
+   
+   - Each agent should:
+     - Inherit from a common BaseAgent class
+     - Implement the tools defined in workflow.yaml
+     - Handle input/output in a consistent format
+     - Include proper error handling
+
+4. WORKFLOW VISUALIZATION
+   - Generate a visualization of the workflow showing:
+     - Nodes (agents and their tools)
+     - Connections between nodes
+     - Data flow direction
+
+5. TESTING
+   - Include example inputs for testing the workflow
+   - Document expected outputs at each stage
+
+When implemented, I should be able to:
+1. Define my agents and workflow in workflow.yaml
+2. Run the application
+3. See a visual representation of my workflow
+4. Execute the full pipeline or individual agents
+5. View results at each stage
+
+Please provide the code for the main application, the BaseAgent class, example agent implementations, and a sample workflow.yaml to get started.
