@@ -56,33 +56,49 @@ def pype_agentic_workflow() -> str:
         ### JSON Format:
 
         ```json
-        {
-            "agents": [
                 {
-                "name": "AgentName",
-                "prompt": "Full prompt text with all {variables} included exactly as found in the source files",
-                "variables": ["var1", "var2"],
-                },
-                {
-                    "name": "DynamicAgent",
-                    "prompt": "dynamic",
-                    "variables": ["var1", "var2"],
-                }
-            ],
-            "connections": [
-                {
-                    "from":start
-                    "to": "AgentName",
-                },
-                {
-                    "from": "AgentName",
-                    "to": "OtherAgentName",
-                }
-                {
-                    
-                }
-            ]
-        }
+                "agents": [
+                    {
+                    "name": "generate_joke",
+                    "prompt": "Write a short joke about {topic}",
+                    "variables": ["topic"],
+                    "modelParams": {
+                        "model": "gpt-3.5-turbo",
+                        "temperature": 0.15,
+                        "top_p": 0.95,
+                        "max_tokens": 1800
+                    }
+                    },
+                    {
+                    "name": "improve_joke",
+                    "prompt": "Make this joke funnier by adding wordplay: {joke}",
+                    "variables": ["joke"],
+                    "modelParams": {
+                        "model": "gpt-3.5-turbo",
+                        "temperature": 0.15,
+                        "top_p": 0.95,
+                        "max_tokens": 1800
+                    }
+                    },
+                    {
+                    "name": "polish_joke",
+                    "prompt": "Add a surprising twist to this joke: {improved_joke}",
+                    "variables": ["improved_joke"],
+                    "modelParams": {
+                        "model": "gpt-3.5-turbo",
+                        "temperature": 0.15,
+                        "top_p": 0.95,
+                        "max_tokens": 1800
+                    }
+                    }
+                ],
+                "connections": [
+                    { "from": "start", "to": "generate_joke" },
+                    { "from": "generate_joke", "to": "improve_joke" },
+                    { "from": "improve_joke", "to": "polish_joke" },
+                    { "from": "polish_joke", "to": "end" }
+                ]
+        } 
     """
 
     return message
