@@ -48,7 +48,7 @@ def pype_agentic_workflow() -> str:
         - If there is an agent-to-agent connection, specify the type of connection: `instantiation`, `transition`, or any other relevant relationship.
         - These connections might only be apparent when analyzing multiple files together.
 
-        5. **Generate the `prompt.config.json` file**:
+        5. **Generate the `agensight.config.json` file**:
         - After extracting the information from all files, save it in a structured `JSON` format as described below:
 
         Important Note: The system prompt, variables, and tools associated with an agent may not all be present in a single file. NEVER output reference paths or placeholders in your results - always traverse the code to find the actual, complete text content. For example, if you find "PROMPTS['agent_name']", locate the PROMPTS dictionary definition and extract the actual string.
