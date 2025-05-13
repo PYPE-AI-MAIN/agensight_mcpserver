@@ -20,7 +20,7 @@ def generateAgensightConfig() -> str:
     message = """
         You are an advanced agent information extractor. Your task is to scan the contents of all files in a directory recursively to extract the following information and save it in a file called `agensight.config.json`.
         When extracting prompt information, prioritize the system prompt if available. If not, use the user prompt or any other prompt that is present.
-        Additionally, you need to search for specific definitions of "span", "traces", and "decorator" to ensure the correct JSON file is generated. This is a crucial part of your task.
+
 
         Follow these steps:
 
@@ -45,9 +45,10 @@ def generateAgensightConfig() -> str:
         - Some examples of tools are `log_abuse_check`, `model_predict`, `extract_text_from_pdf`, etc.
         - Tool definitions and their usage may be spread across different files, so correlate this information carefully.
         
-        4. **Definitions (Span, Traces, Decorator)**:
+        4. **Observability**:
         - Search all files for explicit definitions or clear usages of terms like "span", "traces", and "decorator" in the context of observability, logging, or agent behavior.
         - Extract how these terms are defined or used, as this information is critical for constructing the `agensight.config.json` correctly.
+        - if the agent is defined in some format then it will be easy to extract the prompt and define the connetions 
 
         5. **Connections**:
         - Identify if the agent interacts with other agents across all files. Look for references to other agent names.
@@ -55,9 +56,7 @@ def generateAgensightConfig() -> str:
         - These connections might only be apparent when analyzing multiple files together.
 
         6. **Generate the `agensight.config.json` file**:
-        - After extracting the information from all files, including agent details, prompts, tools, and definitions (span, traces, decorator), save it in a structured `JSON` format as described below:
-
-        Important Note: The system prompt, user prompt, variables, tools, and definitions (span, traces, decorator) associated with an agent may not all be present in a single file. NEVER output reference paths or placeholders in your results - always traverse the code to find the actual, complete text content. For example, if you find "PROMPTS['agent_name']", locate the PROMPTS dictionary definition and extract the actual string.
+        - After extracting the information from all files, including agent details, prompts,varaibles, tools, and definitions, save it in a structured `JSON` format as described below:
 
         ### JSON Format:
 
@@ -66,12 +65,12 @@ def generateAgensightConfig() -> str:
             "agents": [
                 {
                 "name": "AgentName",
-                "prompt": "Full prompt text with all {variables} included exactly as found in the source files",
+                "prompt": "Full prompt text with all {va1} included exactly as {var2} found in the source files",
                 "variables": ["var1", "var2"],
                 },
                 {
                     "name": "DynamicAgent",
-                    "prompt": "dynamic",
+                    "prompt": "some prompt text",
                     "variables": ["var1", "var2"],
                 }
             ],
