@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ```json
 {
   "mcpServers": {
-    "sqlite-server": {
+    "agensight-server": {
       "command": "/path/to/agensight_mcpserver/mcp-env/bin/python",
       "args": ["/path/to/agensight_mcpserver/server.py"],
       "description": "tool to generate agensight config"
