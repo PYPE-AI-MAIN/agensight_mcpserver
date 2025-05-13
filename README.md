@@ -1,63 +1,45 @@
-# Pype Agentic MCP Server
+# AgentSight MCP Server
 
-A Machine Conversation Protocol (MCP) server that analyzes codebases to extract agent information and generate structured workflows.
+A tool to automatically extract agent information from codebases.
 
-## Installation
+## Quick Setup
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone git@github.com:PYPE-AI-MAIN/agensight_mcp_server.git
 cd agensight_mcp_server
 
-# Create a virtual environment (optional but recommended)
+# Create virtual environment
 python -m venv mcp-env
 source mcp-env/bin/activate  # On Windows: mcp-env\Scripts\activate
 
 # Install dependencies
-pip install mcp-server
+pip install -r requirements.txt
 ```
 
-## Setting up with Cursor
+## Use with Cursor
 
-1. Create or edit your Cursor MCP configuration file:
-```bash
-mkdir -p ~/.cursor
-touch ~/.cursor/mcp.json
-```
-
-2. Add this configuration to `~/.cursor/mcp.json`:
+1. Add to `~/.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
     "sqlite-server": {
-      "command": "/path/to/your/python",
-      "args": [
-        "/path/to/agensight_mcp_server/server.py"
-      ],
+      "command": "/path/to/agensight_mcp_server/mcp-env/bin/python",
+      "args": ["/path/to/agensight_mcp_server/server.py"],
       "description": "tool to generate agensight config"
     }
   }
 }
 ```
 
-3. Replace the paths with your actual paths:
-   - `/path/to/your/python`: Path to your Python executable (use the virtual env path if created)
-   - `/path/to/agensight_mcp_server/server.py`: Full path to the server.py file
+**Note:** Replace `/path/to/agensight_mcp_server` with your actual installation path. The virtual environment's Python is located at `mcp-env/bin/python` relative to your installation directory.
 
-4. Restart Cursor to load the new configuration
+2. In Cursor, ask:
+```
+Please analyze this codebase using the generateAgensightConfig MCP tool
+```
 
-## Usage in Cursor
-
-Once configured, you can use the tool directly in Cursor by asking:
-
-"Please analyze this codebase using the pype_agentic_workflow MCP tool"
-
-The tool will:
-- Scan your codebase to identify AI agents
-- Extract prompt templates
-- Identify tools used by agents
-- Map connections between agents
-- Generate an `agensight.config.json` file with all extracted information
+3. Get a `agensight.config.json` file with all agents, prompts, tools, and connections.
 
 ## Features
 
