@@ -7,14 +7,13 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
-
 # Create an MCP server
 mcp = FastMCP("AgentAnalyzer")
 
 
 # New tool to generate the agent UI and analyze the repository
 @mcp.tool()
-def pype_agentic_workflow() -> str:
+def generateAgensightConfig() -> str:
     
     """Create an echo prompt"""
 
