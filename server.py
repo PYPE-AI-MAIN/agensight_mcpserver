@@ -18,7 +18,7 @@ def generateAgensightConfig() -> str:
     """Create an echo prompt"""
 
     message = """
-        You are an advanced agent information extractor. Your task is to scan the contents of all files in a directory recursively to extract the following information and save it in a file called `prompt.config.json`. 
+        You are an advanced agent information extractor. Your task is to scan the contents of all files in a directory recursively to extract the following information and save it in a file called `agensight.config.json`. 
 
         Follow these steps:
 
