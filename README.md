@@ -6,8 +6,8 @@ A tool to automatically extract agent information from codebases.
 
 ```bash
 # Clone repository
-git clone git@github.com:PYPE-AI-MAIN/agensight_mcp_server.git
-cd agensight_mcp_server
+git clone git@github.com:PYPE-AI-MAIN/agensight_mcpserver.git
+cd agensight_mcpserver
 
 # Create virtual environment
 python -m venv mcp-env
@@ -24,8 +24,8 @@ pip install -r requirements.txt
 {
   "mcpServers": {
     "sqlite-server": {
-      "command": "/path/to/agensight_mcp_server/mcp-env/bin/python",
-      "args": ["/path/to/agensight_mcp_server/server.py"],
+      "command": "/path/to/agensight_mcpserver/mcp-env/bin/python",
+      "args": ["/path/to/agensight_mcpserver/server.py"],
       "description": "tool to generate agensight config"
     }
   }

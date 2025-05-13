@@ -18,7 +18,9 @@ def generateAgensightConfig() -> str:
     """Create an echo prompt"""
 
     message = """
-        You are an advanced agent information extractor. Your task is to scan the contents of all files in a directory recursively to extract the following information and save it in a file called `agensight.config.json`. 
+        You are an advanced agent information extractor. Your task is to scan the contents of all files in a directory recursively to extract the following information and save it in a file called `agensight.config.json`.
+        When extracting prompt information, prioritize the system prompt if available. If not, use the user prompt or any other prompt that is present.
+        Additionally, you need to search for specific definitions of "span", "traces", and "decorator" to ensure the correct JSON file is generated. This is a crucial part of your task.
 
         Follow these steps:
 
@@ -31,6 +33,7 @@ def generateAgensightConfig() -> str:
 
         2. **Prompts**:
         - EXTRACT THE FULL TEXT of any prompt templates across all files.
+        - Prioritize extracting the **system prompt** if one is clearly identifiable. If no explicit system prompt is found, then extract the **user prompt** or any other primary prompt associated with the agent.
         - IMPORTANT: Follow all variable references, dictionary lookups, imports, and file references to find the actual complete prompt text.
         - For any prompt stored in variables, dictionaries, or imported from other files, trace the references to get the complete text.
         - For each prompt, extract the **variables** (i.e., placeholders) that are used inside the template.
@@ -42,15 +45,19 @@ def generateAgensightConfig() -> str:
         - Some examples of tools are `log_abuse_check`, `model_predict`, `extract_text_from_pdf`, etc.
         - Tool definitions and their usage may be spread across different files, so correlate this information carefully.
         
-        4. **Connections**:
+        4. **Definitions (Span, Traces, Decorator)**:
+        - Search all files for explicit definitions or clear usages of terms like "span", "traces", and "decorator" in the context of observability, logging, or agent behavior.
+        - Extract how these terms are defined or used, as this information is critical for constructing the `agensight.config.json` correctly.
+
+        5. **Connections**:
         - Identify if the agent interacts with other agents across all files. Look for references to other agent names.
         - If there is an agent-to-agent connection, specify the type of connection: `instantiation`, `transition`, or any other relevant relationship.
         - These connections might only be apparent when analyzing multiple files together.
 
-        5. **Generate the `agensight.config.json` file**:
-        - After extracting the information from all files, save it in a structured `JSON` format as described below:
+        6. **Generate the `agensight.config.json` file**:
+        - After extracting the information from all files, including agent details, prompts, tools, and definitions (span, traces, decorator), save it in a structured `JSON` format as described below:
 
-        Important Note: The system prompt, variables, and tools associated with an agent may not all be present in a single file. NEVER output reference paths or placeholders in your results - always traverse the code to find the actual, complete text content. For example, if you find "PROMPTS['agent_name']", locate the PROMPTS dictionary definition and extract the actual string.
+        Important Note: The system prompt, user prompt, variables, tools, and definitions (span, traces, decorator) associated with an agent may not all be present in a single file. NEVER output reference paths or placeholders in your results - always traverse the code to find the actual, complete text content. For example, if you find "PROMPTS['agent_name']", locate the PROMPTS dictionary definition and extract the actual string.
 
         ### JSON Format:
 
@@ -76,9 +83,10 @@ def generateAgensightConfig() -> str:
                 {
                     "from": "AgentName",
                     "to": "OtherAgentName",
-                }
+                },
                 {
-                    
+                    "from": "OtherAgentName",
+                    "to": "End",
                 }
             ]
         }
