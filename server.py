@@ -44,18 +44,13 @@ def generateAgensightConfig() -> str:
         - Look for any references to tools used by the agent in any file. Tools can be identified by looking for function calls, variables, or imported modules.
         - Some examples of tools are `log_abuse_check`, `model_predict`, `extract_text_from_pdf`, etc.
         - Tool definitions and their usage may be spread across different files, so correlate this information carefully.
-        
-        4. **Observability**:
-        - Search all files for explicit definitions or clear usages of terms like "span", "traces", and "decorator" in the context of observability, logging, or agent behavior.
-        - Extract how these terms are defined or used, as this information is critical for constructing the `agensight.config.json` correctly.
-        - if the agent is defined in some format then it will be easy to extract the prompt and define the connetions 
 
-        5. **Connections**:
+        4. **Connections**:
         - Identify if the agent interacts with other agents across all files. Look for references to other agent names.
         - If there is an agent-to-agent connection, specify the type of connection: `instantiation`, `transition`, or any other relevant relationship.
         - These connections might only be apparent when analyzing multiple files together.
 
-        6. **Generate the `agensight.config.json` file**:
+        5. **Generate the `agensight.config.json` file**:
         - After extracting the information from all files, including agent details, prompts,varaibles, tools, and definitions, save it in a structured `JSON` format as described below:
 
         ### JSON Format:
